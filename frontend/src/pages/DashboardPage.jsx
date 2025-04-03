@@ -1,13 +1,17 @@
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import { formatDate } from "../utils/date.js";
+import Navbar from "../components/Navbar.jsx";
 const DashboardPage = () => {
 	const { user, logout } = useAuthStore();
 
 	const handleLogout = () => {
 		logout();
 	};
+
 	return (
+		<div className="flex flex-col w-full">
+		<Navbar />
 		<motion.div
 			initial={{ opacity: 0, scale: 0.9 }}
 			animate={{ opacity: 1, scale: 1 }}
@@ -71,6 +75,7 @@ const DashboardPage = () => {
 				</motion.button>
 			</motion.div>
 		</motion.div>
+		</div>
 	);
 };
 export default DashboardPage;

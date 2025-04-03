@@ -1,9 +1,8 @@
 import { create } from "zustand";
 import axios from "axios";
-
-
 const API_URL = "http://localhost:5000/api/auth";
 axios.defaults.withCredentials = true;
+
 export const useAuthStore = create((set) => ({
   user: null,
   isAuthenticated: false,
@@ -154,4 +153,53 @@ export const useAuthStore = create((set) => ({
       throw error;
     }
   },
+
+  verifyDoctorEmail: async (verificationCode) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/verify-doctor`, { verificationCode });
+      set({
+        user: response.data.user,
+        isAuthenticated: true,
+        isLoading: false,
+      });
+      return response.data;
+    } catch (error) {
+      set({
+        error: error.response.data.message || "Error verifying email",
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
+
+  checkDoctorStatus: async (email) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.get(`${API_URL}/doctor-status/${email}`);
+      set({
+        isDoctorVerified: response.data.isDoctorVerified,
+        isLoading: false,
+      });
+      return response.data.isDoctorVerified;
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || "Error checking doctor status",
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
+  
+  getAllDoctors: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.get(`${API_URL}/get-all-doctors`);
+      set({ doctors: response.data, isLoading: false });
+    } catch (error) {
+      set({ error: "Error fetching doctors", isLoading: false });
+      throw error;
+    }
+  },  
+
 }));

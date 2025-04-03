@@ -11,6 +11,10 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import RegisterDoctor from "./pages/RegisterDoctor";
+import VerifyDoctorEmail from "./pages/VerifyDoctorEmail";
+import Chat from "./pages/Chat";
+import ChatAi from "./pages/ChatAi";
+import AllDoctor from "./pages/AllDoctor";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
@@ -117,7 +121,50 @@ const App = () => {
             </RedirectAuthenticatedUser>
           }
         />
-        <Route path="/register-doctor" element={<RegisterDoctor />} />
+
+        <Route
+          path="/register-doctor"
+          element={
+            <ProtectedRoute>
+              <RegisterDoctor />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/verify-doctor"
+          element={
+            <ProtectedRoute>
+              <VerifyDoctorEmail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/chat-ai"
+          element={
+            <ProtectedRoute>
+              <ChatAi />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/all-doctors"
+          element={
+            <ProtectedRoute>
+              <AllDoctor />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Toaster />
     </div>

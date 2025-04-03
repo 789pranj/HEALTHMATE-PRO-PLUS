@@ -1,32 +1,37 @@
 import mongoose from "mongoose";
-
 const doctorSchema = new mongoose.Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Reference to User model
+      required: true,
+      unique: true, // Ensure one user can register only once as a doctor
+    },
     email: {
       type: String,
       required: true,
-      unique: true, 
-      index: true,  
+      unique: true,
+      index: true,
     },
     licenseNumber: {
       type: String,
       required: true,
-      unique: true, 
+      unique: true,
     },
     specialization: {
       type: String,
-      required: true, 
+      required: true,
     },
-    isVerified: {
+    isDoctorVerified: {
       type: Boolean,
-      default: false, 
+      default: false,
     },
     verificationCode: {
       type: String,
     },
     verificationCodeExpiresAt: {
       type: Date,
-    }
+    },
   },
   { timestamps: true }
 );

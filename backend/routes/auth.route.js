@@ -8,13 +8,16 @@ import {
   resetPassword,
   checkAuth,
   verifyDoctor,
-  registerDoctor
+  registerDoctor,
+  checkDoctorStatus,
+  getAllDoctors,
 } from "../controllers/auth.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
 router.get("/check-auth", verifyToken, checkAuth);
+router.get("/doctor-status/:email", checkDoctorStatus);
 
 router.post("/signup", signup);
 router.post("/login", login);
@@ -28,6 +31,7 @@ router.post("/reset-password/:token", resetPassword);
 
 router.post("/register-doctor", registerDoctor);
 router.post("/verify-doctor", verifyDoctor);
+router.get('/get-all-doctors', getAllDoctors);
 
 
 

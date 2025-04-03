@@ -228,16 +228,27 @@ export const registerDoctor = async (req, res) => {
   try {
     const { email, licenseNumber, specialization } = req.body;
 
-    // Check if a doctor with the given email already exists
-
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User with this email not found. Please sign up first." });
+    // Validate input
+    if (!email || !licenseNumber || !specialization) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
-    const existingDoctor = await Doctor.findOne({ email });
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        message: "User with this email not found. Please sign up first.",
+      });
+    }
+
+    // Check if the doctor already exists using userId
+    const existingDoctor = await Doctor.findOne({ userId: user._id });
     if (existingDoctor) {
-      return res.status(400).json({ message: "Doctor with this email already exists" });
+      console.log(`Doctor already exists for userId: ${user._id}`);
+      return res.status(400).json({
+        success: false,
+        message: "Doctor profile already exists for this user.",
+      });
     }
 
     // Generate a 6-digit verification code
@@ -246,10 +257,11 @@ export const registerDoctor = async (req, res) => {
 
     // Create a new doctor profile
     const newDoctor = new Doctor({
+      userId: user._id,  // Assign the userId
       email,
       licenseNumber,
       specialization,
-      isVerified: false, 
+      isDoctorVerified: false,
       verificationCode,
       verificationCodeExpiresAt,
     });
@@ -258,14 +270,16 @@ export const registerDoctor = async (req, res) => {
 
     // Send verification email
     await sendVerificationEmail(email, verificationCode);
-    
-    res.status(201).json({ message: "Doctor registered successfully. Verification code sent." });
+
+    res.status(201).json({
+      message: "Doctor registered successfully. Verification code sent.",
+      isDoctorVerified: false,
+    });
   } catch (error) {
     console.error("Error in registerDoctor:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
 
 export const verifyDoctor = async (req, res) => {
   try {
@@ -293,7 +307,7 @@ export const verifyDoctor = async (req, res) => {
     }
 
     // Update doctor verification status
-    doctor.isVerified = true;
+    doctor.isDoctorVerified = true;
     doctor.verificationCode = undefined;
     doctor.verificationCodeExpiresAt = undefined;
     await doctor.save();
@@ -301,14 +315,53 @@ export const verifyDoctor = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Doctor email verified successfully",
+      isDoctorVerified: true,
       doctor: {
         ...doctor._doc,
         verificationCode: undefined, // Hide verificationCode from response
       },
+      
     });
   } catch (error) {
     console.error("Error in verifyDoctor:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const checkDoctorStatus = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const doctor = await Doctor.findOne({ email });
+
+    if (doctor) {
+      return res.json({ isDoctorVerified: doctor.isDoctorVerified });
+    }
+
+    res.json({ isDoctorVerified: false });
+  } catch (error) {
+    console.error("Error checking doctor status:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getAllDoctors = async (req, res) => {
+  try {
+    const doctors = await Doctor.find({ isDoctorVerified: true })
+      .populate("userId", "name email") 
+      .select("specialization"); 
+
+    const formattedDoctors = doctors.map((doc) => ({
+      name: doc.userId.name, 
+      email: doc.userId.email, 
+      specialization: doc.specialization,
+    }));
+
+    res.json(formattedDoctors);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 
