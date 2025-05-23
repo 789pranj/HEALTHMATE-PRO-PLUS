@@ -15,6 +15,10 @@ import VerifyDoctorEmail from "./pages/VerifyDoctorEmail";
 import Chat from "./pages/Chat";
 import ChatAi from "./pages/ChatAi";
 import AllDoctor from "./pages/AllDoctor";
+import BMICalculator from "./pages/BMICalculator ";
+import GeneralHealthTips from "./pages/GeneralHealthTips";
+import ErrorPage from "./pages/ErrorPage";
+import FirstAid from "./pages/FirstAid";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
@@ -164,6 +168,38 @@ const App = () => {
               <AllDoctor />
             </ProtectedRoute>
           }
+        />
+
+        <Route
+          path="/bmi-calculator"
+          element={
+            <ProtectedRoute>
+              <BMICalculator />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/general-health-tips"
+          element={
+            <ProtectedRoute>
+              <GeneralHealthTips />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/all-first-aid"
+          element={
+            <ProtectedRoute>
+              <FirstAid />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="*"
+          element={<ErrorPage />}
         />
       </Routes>
       <Toaster />

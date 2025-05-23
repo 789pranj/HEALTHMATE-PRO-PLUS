@@ -1,7 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
-import { Home, LogOut, Stethoscope, MessagesSquare, Brain, BriefcaseMedical } from "lucide-react";
+import {
+  Home,
+  LogOut,
+  Stethoscope,
+  MessagesSquare,
+  Brain,
+  BriefcaseMedical,
+  Calculator,
+  HeartPulse ,
+} from "lucide-react";
 import axios from "axios"; // Import Axios
 const API_URL = "http://localhost:5000/api/auth";
 
@@ -46,6 +55,14 @@ const Navbar = () => {
             </Link>
 
             <Link
+              to="/all-first-aid"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-pink-800 hover:bg-pink-700 transition-all"
+            >
+              <HeartPulse  size={20} />
+              <span>First Aid</span>
+            </Link>
+
+            <Link
               to="/chat"
               className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-yellow-800 hover:bg-yellow-700 transition-all"
             >
@@ -59,6 +76,14 @@ const Navbar = () => {
             >
               <Brain size={20} />
               <span>Chat AI</span>
+            </Link>
+
+            <Link
+              to="/bmi-calculator"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-teal-800 hover:bg-teal-700 transition-all"
+            >
+              <Calculator size={20} />
+              <span>BMI</span>
             </Link>
 
             {/* Show Register button only if the doctor is not verified */}

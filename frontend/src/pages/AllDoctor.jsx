@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import Navbar from "../components/Navbar";
+import { BriefcaseMedical, Mail, User } from "lucide-react";
 
 const AllDoctors = () => {
   const { doctors, getAllDoctors, isLoading, error } = useAuthStore();
@@ -40,20 +41,19 @@ const AllDoctors = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <h3 className="text-xl font-semibold text-green-400 mb-2 capitalize">
+                <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2 capitalize">
+                  <BriefcaseMedical className="w-5 h-5 text-white" />
                   {doctor.specialization || "No Specialization"}
                 </h3>
-                <p className="text-gray-300 capitalize">
-                  <span className="font-bold ">Name:</span>{" "}
-                  {doctor.userId?.name || doctor.name || "N/A"}
-                </p>
-                <p className="text-gray-300">
-                  <span className="font-bold">Email:</span>{" "}
+
+                <h3 className="text-xl font-semibold text-green-400 mb-2 flex items-center gap-2 capitalize">
+                  <User className="w-5 h-5 text-green-500" />{" "}
+                  {doctor.name || "N/A"}
+                </h3>
+
+                <p className="text-gray-300 flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-blue-400" />{" "}
                   {doctor.email || "N/A"}
-                </p>
-                <p className="text-gray-300 capitalize">
-                  <span className="font-bold">Specialization:</span>{" "}
-                  {doctor.specialization || "N/A"}
                 </p>
               </motion.div>
             ))
