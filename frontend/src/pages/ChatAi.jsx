@@ -15,7 +15,7 @@ const ChatAi = () => {
 
     const userMsg = { text: input, sender: 'user' };
     setMessages((prev) => [...prev, userMsg]);
-    setInput('');
+    setInput(''); 
     setLoading(true);
 
     try {
@@ -46,6 +46,13 @@ const ChatAi = () => {
   return (
     <div className="h-screen w-screen flex flex-col bg-gradient-to-br from-blue-50 to-green-50">
       <Navbar />
+
+      {messages.length === 0 && !loading && (
+          <div className="text-center text-gray-500 mt-16 text-lg">
+            💬 Start chatting with <span className="font-semibold">HealthBuddy</span>...
+          </div>
+        )}
+
       {/* Message container */}
       <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3 mt-16 w-full">
         {messages.map((msg, index) => (

@@ -11,7 +11,7 @@ import doctor from './routes/doctor.route.js';
 import chatAi from "./routes/chatBot.routes.js";
 import generalHealthTips from './routes/generalHealthTips.route.js';
 
-dotenv.config();
+dotenv.config({path: './backend/.env'});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
