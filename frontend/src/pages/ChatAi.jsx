@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, UserCircle, Bot } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
 
 const ChatAi = () => {
   const [input, setInput] = useState('');
@@ -50,19 +52,19 @@ const ChatAi = () => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`flex items-start gap-2 w-full ${
-              msg.sender === 'user' ? 'justify-end' : 'justify-start'
-            }`}
+            className={`flex items-start gap-2 w-full ${msg.sender === 'user' ? 'justify-end' : 'justify-start'
+              }`}
           >
             {msg.sender === 'ai' && <Bot className="w-5 h-5 text-green-600 mt-1" />}
             <div
-              className={`px-4 py-2 rounded-lg max-w-xl whitespace-pre-wrap ${
-                msg.sender === 'user'
+              className={`px-4 py-2 rounded-lg max-w-xl whitespace-pre-wrap ${msg.sender === 'user'
                   ? 'bg-green-500 text-white blur-s'
-                  : 'bg-gray-500 text-white blur-s'
-              }`}
+                  : 'bg-gray-600 text-white blur-s'
+                }`}
             >
-              {msg.text}
+              <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                {msg.text}
+              </ReactMarkdown>
             </div>
             {msg.sender === 'user' && <UserCircle className="w-5 h-5 text-blue-600 mt-1" />}
           </div>
