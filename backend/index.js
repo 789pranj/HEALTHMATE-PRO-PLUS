@@ -8,6 +8,8 @@ import dietStore from "./routes/diet.routes.js";
 import firstAid from "./routes/firstAid.route.js";
 import patient from "./routes/patient.route.js";
 import doctor from './routes/doctor.route.js';
+import chatAi from "./routes/chatBot.routes.js";
+import generalHealthTips from './routes/generalHealthTips.route.js';
 
 dotenv.config();
 
@@ -24,6 +26,8 @@ app.use("/api/diet", dietStore);
 app.use("/api/first-aid", firstAid);
 app.use("/api/patient", patient);
 app.use("/api/doctor", doctor);
+app.use("/api/general-health-tips", generalHealthTips);
+app.use("/api/chatbot", chatAi);
 
 app.listen(PORT, () => {
   connectDB();

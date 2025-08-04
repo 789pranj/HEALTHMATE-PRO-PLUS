@@ -155,7 +155,7 @@ const FirstAid = () => {
           className="fixed bottom-20 right-4 w-full max-w-sm bg-white shadow-lg rounded-lg z-50 animate-slide-up"
         >
           <div className="flex justify-between items-center border-b px-4 py-2">
-            <h3 className="font-semibold text-gray-700">HealthBuddy</h3>
+            <h3 className="font-semibold text-green-700 text-xl">HealthBuddy</h3>
             <button
               onClick={() => setIsChatbotOpen(false)}
               className="text-gray-500 hover:text-red-500"
