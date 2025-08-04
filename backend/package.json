@@ -1,0 +1,29 @@
+{
+  "name": "hm_pro",
+  "version": "1.0.0",
+  "main": "backend/index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^1.10.0",
+    "@google/generative-ai": "^0.24.1",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mailtrap": "^4.0.0",
+    "mongoose": "^8.12.1",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
