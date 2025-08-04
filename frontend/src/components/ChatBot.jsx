@@ -6,7 +6,8 @@ const ChatBot = () => {
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatEndRef = useRef(null);  
+  const API_KEY = import.meta.env.VITE_CHATBOT_API_KEY;
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -45,7 +46,7 @@ HealthBuddy:
 
     try {
       const res = await fetch(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD_MYDj-PTjo7-eme7lpqx0A1Qgehf3Y2U',
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
         {
           method: 'POST',
           headers: {
