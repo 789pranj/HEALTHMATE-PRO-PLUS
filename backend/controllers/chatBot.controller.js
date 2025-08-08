@@ -1,27 +1,24 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Controller Function
 export const chatBot = async (req, res) => {
   const { prompt } = req.body;
 
-  // Validate prompt
   if (!prompt) {
     return res.status(400).json({ error: "Prompt is required" });
   }
 
-  // Check API key
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "GEMINI_API_KEY is not set in the environment." });
+    return res
+      .status(500)
+      .json({ error: "GEMINI_API_KEY is not set in the environment." });
   }
 
-  // Initialize Gemini
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  // Build Prompt
   const fullPrompt = `
-You are HealthBuddy, an AI assistant trained to give first aid advice. Be crisp and clear using short bullet points and **bold** keywords.
+You are HealthBuddy, an AI assistant trained to give first aid advice. Be crisp and clear using short bullet points and **bold** keywords and you can also ask the questions as the doctor do in case you feel right to sak and provide the crisp and clear suggesations..
 
 ${prompt}
 HealthBuddy:

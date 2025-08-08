@@ -1,8 +1,10 @@
 import express, { Router } from "express";
-import { AllDiet } from "../controllers/diet.controller.js";
+import { AllDiet, generateDietPlan } from "../controllers/diet.controller.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/", AllDiet);
+router.get("/all", verifyToken, AllDiet);
+router.post("/generate-diet", verifyToken, generateDietPlan)
 
 export default router;

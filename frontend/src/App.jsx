@@ -19,6 +19,7 @@ import BMICalculator from "./pages/BMICalculator ";
 import GeneralHealthTips from "./pages/GeneralHealthTips";
 import ErrorPage from "./pages/ErrorPage";
 import FirstAid from "./pages/FirstAid";
+import Diet from "./pages/Diet";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
@@ -193,6 +194,15 @@ const App = () => {
           element={
             <ProtectedRoute>
               <FirstAid />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/Diet"
+          element={
+            <ProtectedRoute>
+              <Diet />
             </ProtectedRoute>
           }
         />

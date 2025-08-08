@@ -12,6 +12,7 @@ import {
   HeartPulse,
   Menu,
   X,
+  DiamondPercent,
 } from "lucide-react";
 import axios from "axios";
 
@@ -87,6 +88,11 @@ const NavLinks = ({ isDoctorVerified, logout, isMobile }) => {
       <Link to="/" className={`${baseClass} ${blockOrInline} bg-gray-800 hover:bg-gray-700`}>
         <Home size={20} />
         <span>Home</span>
+      </Link>
+
+      <Link to="/Diet" className={`${baseClass} ${blockOrInline} bg-blue-800 hover:bg-blue-700`}>
+        <DiamondPercent size={20} />
+        <span>Diets</span>
       </Link>
 
       <Link to="/all-first-aid" className={`${baseClass} ${blockOrInline} bg-pink-800 hover:bg-pink-700`}>
