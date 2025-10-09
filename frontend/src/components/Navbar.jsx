@@ -105,7 +105,7 @@ const NavLinks = ({ isDoctorVerified, logout, isMobile }) => {
         <span>Chat</span>
       </Link>
 
-      <Link to="/chat-ai" className={`${baseClass} ${blockOrInline} bg-teal-800 hover:bg-teal-700`}>
+      <Link to="/chat-ai" className={`${baseClass} ${blockOrInline} bg-emerald-800 hover:bg-emerald-700`}>
         <Brain size={20} />
         <span>Chat AI</span>
       </Link>

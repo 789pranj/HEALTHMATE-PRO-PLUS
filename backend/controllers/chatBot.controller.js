@@ -15,7 +15,7 @@ export const chatBot = async (req, res) => {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
   const fullPrompt = `
 You are HealthBuddy, an AI assistant trained to give first aid advice. Be crisp and clear using short bullet points and **bold** keywords and you can also ask the questions as the doctor do in case you feel right to sak and provide the crisp and clear suggesations..

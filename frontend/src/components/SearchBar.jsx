@@ -8,7 +8,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
         placeholder="Search by title or category..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+        className="w-full max-w-md px-4 py-2 border-2 border-green-700 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
       />
     </div>
   );
