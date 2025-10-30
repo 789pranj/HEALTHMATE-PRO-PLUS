@@ -7,16 +7,23 @@ import authRoutes from "./routes/auth.route.js";
 import dietStore from "./routes/diet.routes.js";
 import firstAid from "./routes/firstAid.route.js";
 import patient from "./routes/patient.route.js";
-import doctor from './routes/doctor.route.js';
+import doctor from "./routes/doctor.route.js";
 import chatAi from "./routes/chatBot.routes.js";
-import generalHealthTips from './routes/generalHealthTips.route.js';
+import generalHealthTips from "./routes/generalHealthTips.route.js";
 
-dotenv.config({path: './backend/.env'});
+dotenv.config({ path: "./backend/.env" });
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 
-app.use(cors({ origin: ["http://localhost:5173", "https://pranjal-healthmate-pro-plus.onrender.com"], credentials: true }));
+app.use(
+  cors({
+    origin: [`${clientUrl}`],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());

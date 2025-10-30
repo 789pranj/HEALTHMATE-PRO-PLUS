@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 const baseURL = import.meta.env.VITE_API_BASE_URL;
+axios.defaults.withCredentials = true;
 
 const API_URL = `${baseURL}/api/first-aid/all-first-aid`;
 export const useFirstAidStore = create((set) => ({
