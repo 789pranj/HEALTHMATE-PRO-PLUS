@@ -101,39 +101,45 @@ export const useAuthStore = create((set) => ({
         isCheckingAuth: false,
       });
     } catch (error) {
+      console.error("Auth check failed:", error);
       set({ error: null, isCheckingAuth: false, isAuthenticated: false });
     }
   },
 
   forgotPassword: async (email) => {
-		set({ isLoading: true, error: null });
-		try {
-			const response = await axios.post(`${API_URL}/forgot-password`, { email });
-			set({ message: response.data.message, isLoading: false });
-		} catch (error) {
-			set({
-				isLoading: false,
-				error: error.response.data.message || "Error sending reset password email",
-			});
-			throw error;
-		}
-	},
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/forgot-password`, {
+        email,
+      });
+      set({ message: response.data.message, isLoading: false });
+    } catch (error) {
+      set({
+        isLoading: false,
+        error:
+          error.response.data.message || "Error sending reset password email",
+      });
+      throw error;
+    }
+  },
 
   resetPassword: async (token, password) => {
-		set({ isLoading: true, error: null });
-		try {
-			const response = await axios.post(`${API_URL}/reset-password/${token}`, { password });
-			set({ message: response.data.message, isLoading: false });
-		} catch (error) {
-			set({
-				isLoading: false,
-				error: error.response.data.message || "Error resetting password",
-			});
-			throw error;
-		}
-	},
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axios.post(`${API_URL}/reset-password/${token}`, {
+        password,
+      });
+      set({ message: response.data.message, isLoading: false });
+    } catch (error) {
+      set({
+        isLoading: false,
+        error: error.response.data.message || "Error resetting password",
+      });
+      throw error;
+    }
+  },
 
-  registerDoctor: async ( email, licenseNumber, specialization) => {
+  registerDoctor: async (email, licenseNumber, specialization) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${API_URL}/register-doctor`, {
@@ -158,7 +164,9 @@ export const useAuthStore = create((set) => ({
   verifyDoctorEmail: async (verificationCode) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await axios.post(`${API_URL}/verify-doctor`, { verificationCode });
+      const response = await axios.post(`${API_URL}/verify-doctor`, {
+        verificationCode,
+      });
       set({
         user: response.data.user,
         isAuthenticated: true,
@@ -191,7 +199,7 @@ export const useAuthStore = create((set) => ({
       throw error;
     }
   },
-  
+
   getAllDoctors: async () => {
     set({ isLoading: true, error: null });
     try {
@@ -201,6 +209,5 @@ export const useAuthStore = create((set) => ({
       set({ error: "Error fetching doctors", isLoading: false });
       throw error;
     }
-  },  
-
+  },
 }));
